@@ -1,11 +1,10 @@
 import { IoCloseCircleOutline } from "react-icons/io5";
 
 interface FormErrorsProps {
-  id: string;
   errors: any;
 }
 
-export const FormErrors = ({ id, errors }: FormErrorsProps) => {
+export const FormErrors = ({ errors }: FormErrorsProps) => {
   const errorMessage = errors?.message;
 
   return (

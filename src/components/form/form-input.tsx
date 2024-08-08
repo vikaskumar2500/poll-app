@@ -19,7 +19,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
           {label ? <Label className="">{label}</Label> : null}
           <Input ref={ref} type={type} id={id} name={id || name} {...props} />
         </div>
-        {errors ? <FormErrors id={id} errors={errors} /> : null}
+        {errors ? <FormErrors errors={errors} /> : null}
       </div>
     );
   }

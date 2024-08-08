@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { Checkbox } from "./ui/checkbox";
 import { Progress } from "./ui/progress";
 import { Form, FormControl, FormItem, FormLabel } from "./ui/form";
-import { Button } from "./ui/button";
 import { Controller, UseFormReturn } from "react-hook-form";
 import { FormValues } from "./vote-poll";
 import { Link } from "react-router-dom";
