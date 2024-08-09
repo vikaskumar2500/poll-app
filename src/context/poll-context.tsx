@@ -7,7 +7,7 @@ export interface Poll {
   userVotes: { [userId: string]: string };
 }
 export type Vote = {
-  [key: string]: string|null;
+  [key: string]: string | null;
 };
 
 export interface PollContextType {
@@ -16,7 +16,7 @@ export interface PollContextType {
   selectedPoll: string | null;
   setSelectedPoll: React.Dispatch<React.SetStateAction<string | null>>;
   vote: Vote | null;
-  handleAddVote: (vote: { question: string; option: string|null }) => void;
+  handleAddVote: (vote: { question: string; option: string | null }) => void;
 }
 
 export const PollContext = createContext<PollContextType>({
@@ -38,7 +38,7 @@ const PollProvider: FC<{ children: ReactNode }> = ({ children }) => {
     option,
   }: {
     question: string;
-    option: string|null;
+    option: string | null;
   }) => {
     setVote((prev) => ({
       ...prev,
@@ -51,8 +51,8 @@ const PollProvider: FC<{ children: ReactNode }> = ({ children }) => {
       const fetchedPolls: Poll[] = [
         {
           id: "sjdlkfjjaslkdjf0923",
-          question: "vikaskumar",
-          options: { kumar: 0, vikas: 0, sugandhi: 0 },
+          question: "What are you from?",
+          options: { Delhi: 0, Mumbai: 0, Jaipur: 0, others: 0 },
           userVotes: {},
         },
       ];
