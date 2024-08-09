@@ -1,18 +1,22 @@
 import { createContext, useState, useEffect, ReactNode, FC } from "react";
 
-// Define types for Poll and Context
 export interface Poll {
   id: string;
   question: string;
   options: { [key: string]: number };
   userVotes: { [userId: string]: string };
 }
+export type Vote = {
+  [key: string]: string|null;
+};
 
 export interface PollContextType {
   polls: Poll[];
   setPolls: React.Dispatch<React.SetStateAction<Poll[]>>;
   selectedPoll: string | null;
   setSelectedPoll: React.Dispatch<React.SetStateAction<string | null>>;
+  vote: Vote | null;
+  handleAddVote: (vote: { question: string; option: string|null }) => void;
 }
 
 export const PollContext = createContext<PollContextType>({
@@ -20,17 +24,30 @@ export const PollContext = createContext<PollContextType>({
   setPolls: () => {},
   selectedPoll: null,
   setSelectedPoll: () => {},
+  vote: null,
+  handleAddVote: () => {},
 });
 
 const PollProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [polls, setPolls] = useState<Poll[]>([]);
   const [selectedPoll, setSelectedPoll] = useState<string | null>(null);
+  const [vote, setVote] = useState<Vote | null>(null);
+
+  const handleAddVote = ({
+    question,
+    option,
+  }: {
+    question: string;
+    option: string|null;
+  }) => {
+    setVote((prev) => ({
+      ...prev,
+      [question]: option,
+    }));
+  };
 
   useEffect(() => {
-    // Fetch initial polls data from an API or local storage
     const fetchPolls = async () => {
-      // Placeholder for actual API call
-      // const fetchedPolls = await api.fetchPolls();
       const fetchedPolls: Poll[] = [
         {
           id: "sjdlkfjjaslkdjf0923",
@@ -45,11 +62,16 @@ const PollProvider: FC<{ children: ReactNode }> = ({ children }) => {
     fetchPolls();
   }, []);
 
-  console.log("polls", polls);
-
   return (
     <PollContext.Provider
-      value={{ polls, setPolls, selectedPoll, setSelectedPoll }}
+      value={{
+        polls,
+        setPolls,
+        selectedPoll,
+        setSelectedPoll,
+        vote,
+        handleAddVote,
+      }}
     >
       {children}
     </PollContext.Provider>

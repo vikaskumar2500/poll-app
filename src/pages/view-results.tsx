@@ -13,21 +13,22 @@ import { useContext } from "react";
 const ViewResultsPage = () => {
   const { polls, setSelectedPoll, selectedPoll } = useContext(PollContext);
 
-  const poll = polls.find((p) => p.id === selectedPoll);
+  const poll = selectedPoll ? polls.find((p) => p.id === selectedPoll) : null;
+
   return (
-    <div className="bg-white shadow-md rounded p-6 max-w-sm w-full mx-auto flex flex-col gap-5">
+    <div className="bg-white shadow-md rounded-xl p-6 max-w-sm w-full mx-auto flex flex-col gap-5">
       {polls.length !== 0 ? (
         <div>
           <Label htmlFor="poll-vote" className="block text-lg font-bold mb-2">
-            Chosse A Poll To See Results
+            Choose A Poll To See Results
           </Label>
           <Select
             onValueChange={(val: string) => setSelectedPoll(val)}
-            value={selectedPoll || "Select a poll"}
-            name="poll-vote"
+            value={selectedPoll || ""}
+            name="view-results"
           >
-            <SelectTrigger className="w-[250px] border border-gray-300 rounded-lg">
-              <SelectValue placeholder="Select a poll" />
+            <SelectTrigger className="w-[250px]  outline-none border border-gray-300 rounded-lg">
+              <SelectValue defaultChecked={true} placeholder="Select A Poll" />
             </SelectTrigger>
             <SelectContent>
               {polls.map((poll) => (
