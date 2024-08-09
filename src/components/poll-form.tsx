@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect } from "react";
+import React, { ChangeEvent } from "react";
 import { FormInput } from "./form/form-input";
 import { useFieldArray, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,13 +27,13 @@ const FormSchema = z.object({
 
 type FieldTypes = z.infer<typeof FormSchema>;
 const ErrorToastClassNames = {
-  toast: "bg-blue-400 flex item-center justify-center p-2 gap-1",
-  title: "text-red-400 text-sm",
-  description: "text-red-400",
-  actionButton: "bg-zinc-400",
-  cancelButton: "bg-orange-400 px-2",
+  toast:
+    "bg-transparent/90 flex item-center justify-center p-2 gap-1 rounded-full",
+  title: "text-red-400 text-xs mt-1",
+  actionButton: "bg-zinc-400 rounded-full",
+  cancelButton: "bg-lime-400 rounded-full p-1",
   closeButton: "bg-lime-400",
-  icon: "my-auto",
+  icon: "my-auto  text-lime-400",
 };
 
 export const PollForm: React.FC<PollFormProps> = ({
@@ -89,6 +89,17 @@ export const PollForm: React.FC<PollFormProps> = ({
 
     handleCreatePoll({ ...data, pollOptions: filteredData });
     reset({ pollQuestion: "", pollOptions: [{ option: "" }, { option: "" }] });
+    toast.success("The poll has been successfully created!", {
+      cancel: {
+        label: <IoCloseOutline size={20} />,
+        onClick: () => null,
+      },
+      unstyled: true,
+      classNames: {
+        ...ErrorToastClassNames,
+        title: "text-green-400 text-xs mt-1",
+      },
+    });
   };
 
   const handleRemove = (index: number) => {
@@ -109,8 +120,6 @@ export const PollForm: React.FC<PollFormProps> = ({
       append({ option: "" }, { focusIndex: watchOptions.length - 1 });
     }
   };
-
-  useEffect(() => {}, [watchOptions]);
 
   return (
     <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
@@ -160,12 +169,13 @@ export const PollForm: React.FC<PollFormProps> = ({
           {errors.pollOptions.message}
         </div>
       )}
-      <button
+      <Button
         type="submit"
-        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 rounded focus:outline-none focus:shadow-outline"
+        disabled={errors.pollQuestion?.message ? true : false}
+        variant="velocity"
       >
         Create Poll
-      </button>
+      </Button>
     </form>
   );
 };

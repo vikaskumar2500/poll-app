@@ -35,7 +35,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <PollProvider>
-      <Toaster position="bottom-right" richColors />
+      <Toaster position="bottom-right" />
       <RouterProvider router={router} />
     </PollProvider>
   </React.StrictMode>
