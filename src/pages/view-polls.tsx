@@ -13,6 +13,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { PollOptions } from "@/components/poll-options";
+import { authContext } from "@/context/auth-context";
 
 const FormSchema = z.object({
   selectedOption: z.string().optional(),
@@ -22,7 +23,8 @@ export type FormValues = z.infer<typeof FormSchema>;
 
 const ViewPollsPage = () => {
   const { selectedPoll, polls, setSelectedPoll } = useContext(PollContext);
-  const userId = "vikaskumar2500"; // dummy user
+  const { user } = useContext(authContext);
+
   const { setPolls } = useContext(PollContext);
 
   const poll = polls.find((poll) => poll.id === selectedPoll);
@@ -40,16 +42,16 @@ const ViewPollsPage = () => {
       prevPolls.map((p) => {
         if (p.id !== poll?.id) return p;
 
-        const userVote = p.userVotes[userId];
+        const userVote = p.userVotes[user?.username!];
         const updatedOptions = { ...p.options };
 
         if (checked && userVote !== option) {
           if (userVote !== undefined) updatedOptions[userVote] -= 1;
           updatedOptions[option] += 1;
-          p.userVotes[userId] = option;
+          p.userVotes[user?.username!] = option;
         } else if (!checked && userVote === option) {
           updatedOptions[option] -= 1;
-          delete p.userVotes[userId];
+          delete p.userVotes[user?.username!];
         }
 
         return {

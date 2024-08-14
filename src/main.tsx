@@ -9,6 +9,9 @@ import ViewResultsPage from "./pages/view-results";
 import PollProvider from "./context/poll-context";
 import ViewPollsPage from "./pages/view-polls";
 import { Toaster } from "sonner";
+import SignIn from "./pages/signin";
+import SignUp from "./pages/signup";
+import AuthProvider from "./context/auth-context";
 
 const router = createBrowserRouter([
   {
@@ -30,13 +33,23 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/signin",
+    element: <SignIn />,
+  },
+  {
+    path: "/signup",
+    element: <SignUp />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <PollProvider>
-      <Toaster position="bottom-right" />
-      <RouterProvider router={router} />
-    </PollProvider>
+    <AuthProvider>
+      <PollProvider>
+        <Toaster position="bottom-right" />
+        <RouterProvider router={router} />
+      </PollProvider>
+    </AuthProvider>
   </React.StrictMode>
 );
