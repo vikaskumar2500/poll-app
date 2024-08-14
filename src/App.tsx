@@ -1,12 +1,14 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import Header from "./components/header";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { authContext, User } from "./context/auth-context";
 
 function App() {
+  const [mount, setMount] = useState(false);
   const { Login } = useContext(authContext);
   const navigate = useNavigate();
   useEffect(() => {
+    setMount(true);
     // I am just accessing the userdata from localstorage
     const userData = localStorage.getItem("user") as string;
     if (userData) {
@@ -14,7 +16,11 @@ function App() {
       Login(user);
       return navigate("/");
     }
-    navigate("/signin");
+
+    () => {
+      if (!mount) return null;
+      navigate("/signin");
+    };
   }, []);
 
   return (
