@@ -1,30 +1,25 @@
-# React + TypeScript + Vite
+# FRONTEND PART
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## For use this repo just need to clone by using given command
+```git clone https://github.com/vikaskumar2500/poll-app.git```
 
-Currently, two official plugins are available:
+## Install the node modules
+```npm/yarn install```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Now To run the project
+```npm run dev```
 
-## Expanding the ESLint configuration
+# Functionality that I have implemented in this project
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Signin & Signup page
+I have created the signin & signup page and form validation by using react-hook-form + zod and It's just without backend work.
 
-- Configure the top-level `parserOptions` property like this:
+## View Polls page
+Here I have taken the one default poll along with the multi-select poll. Here again, it's only for the single-choice poll not multiple-choice.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## create poll page
+You can create your poll as per your convenience.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## View results page
+Finally you can also see the voted poll results.
+
